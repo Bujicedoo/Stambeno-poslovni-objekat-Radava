@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prezentacija Stambeno-Poslovnog Objekta</title>
+    <style>
+        /* Osnovni stilovi za moderan izgled */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+            color: #333;
+            text-align: center;
+        }
+
+        header {
+            background-color: #1a252f;
+            color: white;
+            padding: 20px 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 { margin: 0; font-size: 24px; }
+        p { color: #bdc3c7; margin: 5px 0 0 0; }
+
+        /* Kontrole za izbor sprata */
+        .floor-selector {
+            margin: 30px auto;
+        }
+
+        .btn {
+            background-color: #ffffff;
+            color: #1a252f;
+            border: 2px solid #1a252f;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn.active, .btn:hover {
+            background-color: #1a252f;
+            color: white;
+        }
+
+        /* Kontejner za interaktivnu osnovu */
+        .canvas-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .osnova-img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Pop-up (Modal) Prozor za rendere */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+            text-align: left;
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 15px; top: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #95a5a6;
+        }
+
+        .close-btn:hover { color: #333; }
+
+        /* Galerija unutar pop-upa */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Stambeno-Poslovni Objekat</h1>
+        <p>Izaberite sprat i kliknite na stan za pregled 3D rendera</p>
+    </header>
+
+    <div class="floor-selector">
+        <button class="btn active" onclick="prikaziEtazu(1)">1. i 2. Sprat (Stanovi A1 - A11)</button>
+        <button class="btn" onclick="prikaziEtazu(2)">3. do 7. Sprat (Stanovi A1 - A10)</button>
+    </div>
+
+    <div class="canvas-container">
+        
+        <div id="etaza-1">
+            <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=900" usemap="#mapa-etaza1" class="osnova-img" alt="Osnova 1-2 sprata">
+            
+            <map name="mapa-etaza1">
+                <area shape="rect" coords="0,0,200,200" alt="Stan A1" href="javascript:void(0)" onclick="otvoriStan('A1', 1)">
+                <area shape="rect" coords="250,0,450,200" alt="Stan A2" href="javascript:void(0)" onclick="otvoriStan('A2', 1)">
+                <area shape="rect" coords="500,0,700,200" alt="Stan A11" href="javascript:void(0)" onclick="otvoriStan('A11', 1)">
+            </map>
+        </div>
+
+        <div id="etaza-2" style="display: none;">
+            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=900" usemap="#mapa-etaza2" class="osnova-img" alt="Osnova 3-7 sprata">
+            
+            <map name="mapa-etaza2">
+                <area shape="rect" coords="0,0,300,300" alt="Stan A1" href="javascript:void(0)" onclick="otvoriStan('A1', 2)">
+                <area shape="rect" coords="350,0,650,300" alt="Stan A10" href="javascript:void(0)" onclick="otvoriStan('A10', 2)">
+            </map>
+        </div>
+
+    </div>
+
+    <div id="stanModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="zatvoriModal()">&times;</span>
+            <h2 id="modal-naslov">Stan</h2>
+            <p>Prikaz 3D rendera za izabranu stambenu jedinicu:</p>
+            
+            <div class="gallery" id="modal-galerija"></div>
+        </div>
+    </div>
+
+    <script>
+        // Logika za prebacivanje između dvije osnove (etaže)
+        function prikaziEtazu(broj) {
+            const etaza1 = document.getElementById('etaza-1');
+            const etaza2 = document.getElementById('etaza-2');
+            const dugmad = document.querySelectorAll('.btn');
+
+            dugmad.forEach(btn => btn.classList.remove('active'));
+
+            if(broj === 1) {
+                etaza1.style.display = 'block';
+                etaza2.style.display = 'none';
+                dugmad[0].classList.add('active');
+            } else {
+                etaza1.style.display = 'none';
+                etaza2.style.display = 'block';
+                dugmad[1].classList.add('active');
+            }
+        }
+
+        // Logika za otvaranje pop-up prozora i prikaz rendera tog stana
+        function otvoriStan(oznakaStana, etaza) {
+            document.getElementById('modal-naslov').innerText = `Stan ${oznakaStana} (Etaža ${etaza === 1 ? '1-2' : '3-7'})`;
+            const galerija = document.getElementById('modal-galerija');
+            
+            // Čišćenje prethodnih slika
+            galerija.innerHTML = '';
+
+            // Putanje do slika rendera (ovdje unosiš nazive tvojih pravih slika)
+            // Za test koristimo online slike iz arhitekture
+            const testneSlike = [
+                "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400", // Dnevna
+                "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=400"  // Kuhinja
+            ];
+
+            // Generisanje slika u prozoru
+            testneSlike.forEach(izvorSlike => {
+                const img = document.createElement('img');
+                img.src = izvorSlike;
+                img.alt = `Render za stan ${oznakaStana}`;
+                galerija.appendChild(img);
+            });
+
+            // Prikaži pop-up
+            document.getElementById('stanModal').style.display = 'flex';
+        }
+
+        function zatvoriModal() {
+            document.getElementById('stanModal').style.display = 'none';
+        }
+
+        // Zatvori modal ako korisnik klikne bilo gdje van njega
+        window.onclick = function(event) {
+            const modal = document.getElementById('stanModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

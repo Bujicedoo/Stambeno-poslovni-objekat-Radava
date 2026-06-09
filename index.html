@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prezentacija Stambeno-Poslovnog Objekta</title>
+    <title>Prezentacija Stambeno-Poslovnog Objekta - Radava</title>
     <style>
         /* Osnovni stilovi za moderan izgled */
         body {
@@ -63,6 +63,7 @@
             max-width: 100%;
             height: auto;
             display: block;
+            margin: 0 auto;
         }
 
         /* Pop-up (Modal) Prozor za rendere */
@@ -85,6 +86,7 @@
             width: 90%;
             position: relative;
             text-align: left;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
         }
 
         .close-btn {
@@ -101,14 +103,16 @@
         /* Galerija unutar pop-upa */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 15px;
             margin-top: 15px;
+            max-height: 500px;
+            overflow-y: auto;
         }
 
         .gallery img {
             width: 100%;
-            height: 150px;
+            height: 200px;
             object-fit: cover;
             border-radius: 4px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -118,33 +122,47 @@
 <body>
 
     <header>
-        <h1>Stambeno-Poslovni Objekat</h1>
+        <h1>Stambeno-Poslovni Objekat - Radava</h1>
         <p>Izaberite sprat i kliknite na stan za pregled 3D rendera</p>
     </header>
 
     <div class="floor-selector">
         <button class="btn active" onclick="prikaziEtazu(1)">1. i 2. Sprat (Stanovi A1 - A11)</button>
-        <button class="btn" onclick="prikaziEtazu(2)">3. do 7. Sprat (Stanovi A1 - A10)</button>
+        <button class="btn" onclick="prikaziEtazu(2)">3. do 7. Sprat (Stanovi A1 - A11)</button>
     </div>
 
     <div class="canvas-container">
         
         <div id="etaza-1">
-            <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=900" usemap="#mapa-etaza1" class="osnova-img" alt="Osnova 1-2 sprata">
-            
+            <img src="Osnova 1.jpg" usemap="#mapa-etaza1" class="osnova-img" alt="Osnova 1-2 sprata">
             <map name="mapa-etaza1">
-                <area shape="rect" coords="0,0,200,200" alt="Stan A1" href="javascript:void(0)" onclick="otvoriStan('A1', 1)">
-                <area shape="rect" coords="250,0,450,200" alt="Stan A2" href="javascript:void(0)" onclick="otvoriStan('A2', 1)">
-                <area shape="rect" coords="500,0,700,200" alt="Stan A11" href="javascript:void(0)" onclick="otvoriStan('A11', 1)">
+                <area shape="poly" coords="22,189,125,190,123,82,82,82,81,9,24,9" alt="A1" title="A1" href="javascript:void(0)" onclick="otvoriStan('A1')">
+                <area shape="rect" coords="156,190,23,339" alt="A2" title="A2" href="javascript:void(0)" onclick="otvoriStan('A2')">
+                <area shape="poly" coords="223,124,224,7,88,10,89,82,127,79,126,125" alt="A3" title="A3" href="javascript:void(0)" onclick="otvoriStan('A3')">
+                <area shape="poly" coords="157,339,223,338,225,315,272,318,271,219,226,219,223,189,161,191" alt="A4" title="A4" href="javascript:void(0)" onclick="otvoriStan('A4')">
+                <area shape="rect" coords="424,162,273,316" alt="A5" title="A5" href="javascript:void(0)" onclick="otvoriStan('A5')">
+                <area shape="poly" coords="473,313,477,209,500,208,502,162,429,161,430,314" alt="A6" title="A6" href="javascript:void(0)" onclick="otvoriStan('A6')">
+                <area shape="poly" coords="325,122,322,83,285,79,286,10,227,10,226,123" alt="A7" title="A7" href="javascript:void(0)" onclick="otvoriStan('A7')">
+                <area shape="poly" coords="325,122,489,122,491,9,286,9,287,81,325,83" alt="A8" title="A8" href="javascript:void(0)" onclick="otvoriStan('A8')">
+                <area shape="poly" coords="477,314,555,315,555,339,621,338,619,188,556,187,555,164,503,162,502,211,478,210" alt="A9" title="A9" href="javascript:void(0)" onclick="otvoriStan('A9')">
+                <area shape="rect" coords="622,338,756,192" alt="A10" title="A10" href="javascript:void(0)" onclick="otvoriStan('A10')">
+                <area shape="rect" coords="641,190,759,54" alt="A11" title="A11" href="javascript:void(0)" onclick="otvoriStan('A11')">
             </map>
         </div>
 
         <div id="etaza-2" style="display: none;">
-            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=900" usemap="#mapa-etaza2" class="osnova-img" alt="Osnova 3-7 sprata">
-            
+            <img src="Osnova 2.jpg" usemap="#mapa-etaza2" class="osnova-img" alt="Osnova 3-7 sprata">
             <map name="mapa-etaza2">
-                <area shape="rect" coords="0,0,300,300" alt="Stan A1" href="javascript:void(0)" onclick="otvoriStan('A1', 2)">
-                <area shape="rect" coords="350,0,650,300" alt="Stan A10" href="javascript:void(0)" onclick="otvoriStan('A10', 2)">
+                <area shape="poly" coords="18,8,18,188,116,187,118,86,79,85,76,9" alt="A1" title="A1" href="javascript:void(0)" onclick="otvoriStan('A1')">
+                <area shape="rect" coords="149,192,18,341" alt="A2" title="A2" href="javascript:void(0)" onclick="otvoriStan('A2')">
+                <area shape="poly" coords="279,125,277,11,79,7,80,81,119,80,121,126" alt="A3-2" title="A3-2" href="javascript:void(0)" onclick="otvoriStan('A3-2')">
+                <area shape="poly" coords="152,340,217,341,217,317,265,315,268,219,219,221,216,189,151,189" alt="A4" title="A4" href="javascript:void(0)" onclick="otvoriStan('A4')">
+                <area shape="rect" coords="417,162,268,315" alt="A5" title="A5" href="javascript:void(0)" onclick="otvoriStan('A5')">
+                <area shape="poly" coords="470,209,496,209,496,161,420,161,419,316,471,317" alt="A6" title="A6" href="javascript:void(0)" onclick="otvoriStan('A6')">
+                <area shape="rect" coords="483,7,279,123" alt="A8-2" title="A8-2" href="javascript:void(0)" onclick="otvoriStan('A8-2')">
+                <area shape="poly" coords="551,339,617,340,615,190,548,190,549,160,495,160,497,210,471,210,474,315,549,319" alt="A9" title="A9" href="javascript:void(0)" onclick="otvoriStan('A9')">
+                <area shape="rect" coords="753,191,617,342" alt="A10" title="A10" href="javascript:void(0)" onclick="otvoriStan('A10')">
+                <area shape="poly" coords="751,9,752,190,639,188,636,92,600,93,597,9" alt="A11-2" title="A11-2" href="javascript:void(0)" onclick="otvoriStan('A11-2')">
             </map>
         </div>
 
@@ -154,14 +172,14 @@
         <div class="modal-content">
             <span class="close-btn" onclick="zatvoriModal()">&times;</span>
             <h2 id="modal-naslov">Stan</h2>
-            <p>Prikaz 3D rendera za izabranu stambenu jedinicu:</p>
+            <p>3D renderi i vizuelizacija prostora:</p>
             
             <div class="gallery" id="modal-galerija"></div>
         </div>
     </div>
 
     <script>
-        // Logika za prebacivanje između dvije osnove (etaže)
+        // Prebacivanje između dvije osnove (etaže)
         function prikaziEtazu(broj) {
             const etaza1 = document.getElementById('etaza-1');
             const etaza2 = document.getElementById('etaza-2');
@@ -180,30 +198,55 @@
             }
         }
 
-        // Logika za otvaranje pop-up prozora i prikaz rendera tog stana
-        function otvoriStan(oznakaStana, etaza) {
-            document.getElementById('modal-naslov').innerText = `Stan ${oznakaStana} (Etaža ${etaza === 1 ? '1-2' : '3-7'})`;
+        // Baza podataka za rendere stanova
+        // Ovdje mapiramo tačne nazive slika za svaki stan posebno
+        const renderiStanova = {
+            // Etaža 1
+            "A1": ["renderi/A1_dnevna.jpg", "renderi/A1_kuhinja.jpg"],
+            "A2": ["renderi/A2_dnevna.jpg"],
+            "A3": ["renderi/A3_dnevna.jpg"],
+            "A4": ["renderi/A4_dnevna.jpg"],
+            "A5": ["renderi/A5_dnevna.jpg"],
+            "A6": ["renderi/A6_dnevna.jpg"],
+            "A7": ["renderi/A7_dnevna.jpg"],
+            "A8": ["renderi/A8_dnevna.jpg"],
+            "A9": ["renderi/A9_dnevna.jpg"],
+            "A10": ["renderi/A10_dnevna.jpg"],
+            "A11": ["renderi/A11_dnevna.jpg"],
+
+            // Etaža 2 (Oznake iz tvog image-map koda)
+            "A3-2": ["renderi/A3_2_dnevna.jpg"],
+            "A8-2": ["renderi/A8_2_dnevna.jpg"],
+            "A11-2": ["renderi/A11_2_dnevna.jpg"]
+        };
+
+        // Funkcija koja se pokreće na klik stana
+        function otvoriStan(oznakaStana) {
+            document.getElementById('modal-naslov').innerText = `Stambena jedinica: Stan ${oznakaStana}`;
             const galerija = document.getElementById('modal-galerija');
             
-            // Čišćenje prethodnih slika
             galerija.innerHTML = '';
 
-            // Putanje do slika rendera (ovdje unosiš nazive tvojih pravih slika)
-            // Za test koristimo online slike iz arhitekture
-            const testneSlike = [
-                "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400", // Dnevna
-                "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=400"  // Kuhinja
-            ];
+            // Provjeravamo da li imamo slike za taj stan u bazi iznad
+            const slike = renderiStanova[oznakaStana];
 
-            // Generisanje slika u prozoru
-            testneSlike.forEach(izvorSlike => {
-                const img = document.createElement('img');
-                img.src = izvorSlike;
-                img.alt = `Render za stan ${oznakaStana}`;
-                galerija.appendChild(img);
-            });
+            if (slike && slike.length > 0) {
+                slike.forEach(izvorSlike => {
+                    const img = document.createElement('img');
+                    img.src = izvorSlike;
+                    img.alt = `Render za stan ${oznakaStana}`;
+                    
+                    // U slučaju da slika još nije prenesena, stavljamo privremenu lijepu zamjenu
+                    img.onerror = function() {
+                        this.src = "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400";
+                    };
+                    
+                    galerija.appendChild(img);
+                });
+            } else {
+                galerija.innerHTML = '<p>Renderi za ovaj stan su u pripremi.</p>';
+            }
 
-            // Prikaži pop-up
             document.getElementById('stanModal').style.display = 'flex';
         }
 
@@ -211,7 +254,6 @@
             document.getElementById('stanModal').style.display = 'none';
         }
 
-        // Zatvori modal ako korisnik klikne bilo gdje van njega
         window.onclick = function(event) {
             const modal = document.getElementById('stanModal');
             if (event.target == modal) {
